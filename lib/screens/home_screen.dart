@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.fromLTRB(0.0,0.0,0.0,60.0),
-              child: Text("Quiz",
+              child: Text("QUIZ",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.amber,
@@ -41,13 +41,17 @@ class HomeScreen extends StatelessWidget {
             ),
             Container(
               height: 80.0,
-              padding: EdgeInsets.fromLTRB(40.0,0.0,40.0,0.0),
+              padding: EdgeInsets.fromLTRB(40.0,0.0,40.0,5.0),
               child: botao('CADASTRAR', 40.0, 1, context)
+            ),
+            Container(
+                height: 80.0,
+                padding: EdgeInsets.fromLTRB(80.0,0.0,80.0,0.0),
+                child: botao('LOJA', 35.0, 1, context)
             ),
           ],
         ),
       ));
-
   }
 RaisedButton botao(String nomebotao, double tamanho, int opcao, BuildContext context){
     return RaisedButton(
