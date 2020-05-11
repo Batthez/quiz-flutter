@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Color.fromARGB(255, 232, 132, 19),
                     Color.fromARGB(255, 207, 81, 146)
                   ],
-                  begin: Alignment.topLeft,
+                           begin: Alignment.topLeft,
                   end: Alignment.bottomRight
               ),
             ),
@@ -30,11 +30,11 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Center(
               child: Padding(
                 padding: EdgeInsets.only(top: 40.0),
-                child: Column(
-                  children: <Widget>[
-                    Card(
-                      elevation: 5,
-                      child: SingleChildScrollView(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Card(
+                        elevation: 5,
                         child:  Column(
                           children: <Widget>[
                             SizedBox(height: 50.0,),
@@ -48,19 +48,19 @@ class _LoginScreenState extends State<LoginScreen> {
                               textAlign: TextAlign.center,
                             ),
                             SizedBox(height: 40.0,),
-                           Padding(
-                             padding: EdgeInsets.all(10.0),
-                             child:  TextField(
-                               controller: _emailController,
-                               decoration: InputDecoration(
-                                   labelText: "E-mail",
-                                   border: OutlineInputBorder(
-                                       borderRadius: BorderRadius.all(Radius.circular(10.0))
-                                   )
+                            Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child:  TextField(
+                                controller: _emailController,
+                                decoration: InputDecoration(
+                                    labelText: "E-mail",
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(10.0))
+                                    )
 
-                               ),
-                             ),
-                           ),
+                                ),
+                              ),
+                            ),
                             SizedBox(height: 15.0,),
                             Padding(
                               padding: EdgeInsets.all(10.0),
@@ -111,10 +111,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
                           ],
                         ),
-                      ),
-                    )
-                  ],
-                ),
+                      )
+                    ],
+                  ),
+                )
               )
             )
         ),
@@ -123,14 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
 
-  void clickLogar() {
-
-  }
-
   bool verificacaoDosCampos(String text) {
-    if (text.isNotEmpty) {
-      return true;
-    }
-    return false;
+    return text.isNotEmpty;
   }
 }
