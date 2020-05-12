@@ -76,8 +76,6 @@ RaisedButton botao(String nomebotao, double tamanho, int opcao, BuildContext con
             break;
           case 2:
             break;
-          case 3:
-            break;
 
         }
       }
