@@ -52,6 +52,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
 
+    ),
     );
   }
 FlatButton botao(String nomebotao, double tamanho, int opcao){
