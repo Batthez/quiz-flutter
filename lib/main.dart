@@ -10,7 +10,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Quiz App',
-      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.blue,
       ),

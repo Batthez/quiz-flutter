@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
         decoration: BoxDecoration(
       gradient: LinearGradient(
       colors: [
-      Color.fromARGB(255, 232, 132, 19),
+        Color.fromARGB(255, 232, 132, 19),
         Color.fromARGB(255, 207, 81, 146)
         ],
         begin: Alignment.topLeft,
@@ -52,6 +52,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
 
+    )
     );
   }
 FlatButton botao(String nomebotao, double tamanho, int opcao){

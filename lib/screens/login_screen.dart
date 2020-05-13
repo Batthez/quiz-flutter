@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quizapp/screens/home_screen.dart';
+import 'package:quizapp/screens/sign_up_screen.dart';
+import 'package:quizapp/user/user_logado.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -10,6 +14,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   bool senhaOk = verificacaoDosCampos(_passController.text);
 
                                   if(emailOk && senhaOk){
-                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  HomeScreen()));
+                                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>  HomeScreen()));
                                   }else{
 
                                   }
@@ -104,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 textColor: Colors.red,
                                 child:Text("Cadastre-se >"),
                                 onPressed: (){
-
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpScreen()));
                                 },
                               ),
                             ),
