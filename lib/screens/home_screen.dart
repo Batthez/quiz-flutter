@@ -8,8 +8,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
 
-      body: SingleChildScrollView(
-          child: Container(
+      body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                   colors: [
@@ -54,8 +53,7 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-      ),
-    );
+      );
   }
 RaisedButton botao(String nomebotao, double tamanho, int opcao, BuildContext context){
     return RaisedButton(
