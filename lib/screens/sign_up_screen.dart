@@ -69,7 +69,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 padding: EdgeInsets.all(10.0),
                                 child: TextField(
                                   controller: _emailController,
-                                  obscureText: true,
                                   decoration: InputDecoration(
                                       labelText: "E-mail",
                                       border: OutlineInputBorder(
@@ -83,6 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 padding: EdgeInsets.all(10.0),
                                 child:  TextField(
                                   controller: _passController,
+                                  obscureText: true,
                                   decoration: InputDecoration(
                                       labelText: "Senha",
                                       border: OutlineInputBorder(
