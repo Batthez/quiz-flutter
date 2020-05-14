@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quizapp/user/user_logado.dart';
 
 
 class SignUpScreen extends StatefulWidget {
@@ -7,6 +9,12 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  final _nameController = TextEditingController();
+  final _passController = TextEditingController();
+  final _emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               Padding(
                                 padding: EdgeInsets.all(10.0),
                                 child:  TextField(
+                                  controller: _nameController,
                                   decoration: InputDecoration(
                                       labelText: "Nome",
                                       border: OutlineInputBorder(
@@ -59,6 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               Padding(
                                 padding: EdgeInsets.all(10.0),
                                 child: TextField(
+                                  controller: _emailController,
                                   obscureText: true,
                                   decoration: InputDecoration(
                                       labelText: "E-mail",
@@ -72,6 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               Padding(
                                 padding: EdgeInsets.all(10.0),
                                 child:  TextField(
+                                  controller: _passController,
                                   decoration: InputDecoration(
                                       labelText: "Senha",
                                       border: OutlineInputBorder(
@@ -89,6 +100,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   textColor: Colors.white,
                                   child: Text("Cadastrar"),
                                   onPressed: (){
+                                    _auth.createUserWithEmailAndPassword(email: _emailController.text, password: _passController.text)
+                                        .then((user){
+                                          Firebase.usuarioLogado = user;
+                                    });
                                   },
                                   padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                                 ),

@@ -95,7 +95,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   bool senhaOk = verificacaoDosCampos(_passController.text);
 
                                   if(emailOk && senhaOk){
-                                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>  HomeScreen()));
+
+                                      _auth.signInWithEmailAndPassword(email: _emailController.text, password: _passController.text)
+                                      .then((user){
+                                        Firebase.usuarioLogado = user;
+                                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>  HomeScreen()));
+                                      }).catchError((erro){
+
+                                      });
                                   }else{
 
                                   }
@@ -111,6 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child:Text("Cadastre-se >"),
                                 onPressed: (){
                                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpScreen()));
+
                                 },
                               ),
                             ),
