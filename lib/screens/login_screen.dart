@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,37 +52,34 @@ class _LoginScreenState extends State<LoginScreen> {
                               SizedBox(
                                 height: 40.0,
                               ),
-                              Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: TextField(
-                                  controller: _emailController,
-                                  decoration: InputDecoration(
-                                      labelText: "E-mail",
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10.0)))),
+                              Form(
+                                child: ListView(
+                                  padding: EdgeInsets.all(10.0),
+                                  children: <Widget>[
+                                    TextFormField(
+                                      controller: _emailController,
+                                      decoration: InputDecoration(
+                                          labelText: "E-mail",
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10.0)))),
+                                    ),
+                                    TextFormField(
+                                      controller: _passController,
+                                      obscureText: true,
+                                      decoration: InputDecoration(
+                                          labelText: "Senha",
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10.0)))),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              SizedBox(
-                                height: 15.0,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: TextField(
-                                  controller: _passController,
-                                  obscureText: true,
-                                  decoration: InputDecoration(
-                                      labelText: "Senha",
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10.0)))),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15.0,
-                              ),
+
                               Container(
                                 width: 400.0,
+                                height: 70.0,
                                 padding: EdgeInsets.all(10.0),
                                 child: RaisedButton(
                                   color: Theme.of(context).primaryColor,
