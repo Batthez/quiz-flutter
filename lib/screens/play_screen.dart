@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class PlayScreen extends StatefulWidget {
@@ -6,12 +7,33 @@ class PlayScreen extends StatefulWidget {
 }
 
 class _PlayScreenState extends State<PlayScreen> {
+  int numQuestao = 0;
+  String questao = "", a = "",b = "",c = "",d = "";
+
   @override
   Widget build(BuildContext context) {
+    List<DocumentSnapshot> listaDeQuestoes = List();
+    Firestore.instance.collection("questoes").getDocuments().then((snapshot){
+      listaDeQuestoes = snapshot.documents;
+
+        for(var documento in listaDeQuestoes){
+          Future.delayed(Duration(seconds: 20)).then((a){
+          });
+          numQuestao++;
+          questao = documento["enunciado"];
+          a = documento["alternativas"][0];
+          b = documento["alternativas"][1];
+          c = documento["alternativas"][2];
+          d = documento["alternativas"][3];
+        }
+
+
+    });
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Questão 1",
+        title: Text("Questão $numQuestao",
         style: TextStyle(
           fontSize: 25.0,
         ),
@@ -28,7 +50,7 @@ class _PlayScreenState extends State<PlayScreen> {
               Container(
                 padding: EdgeInsets.fromLTRB(5.0, 30.0, 5.0, 0.0),
                 child: Text(
-                  "1.Um desenhista pretende elaborar um desenho técnico utilizando uma escala de 1:250. Sabendo-se que, um dos elementos do objeto representados tem o comprimento s= 15 cm calcule o comprimento real do objeto em metro (m) e marque a alternativa correta.",
+                  "$questao",
                   style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold
@@ -36,17 +58,17 @@ class _PlayScreenState extends State<PlayScreen> {
                 ),
               ),
               Container(
-                  padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0),
-                  child: botaoescolhas("A. 3500,00cm", 25.0, 0, context)),
+                  padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 0.0),
+                  child: botaoescolhas("A. $a", 25.0, 0, context)),
               Container(
                   padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                  child: botaoescolhas("B. 37,50m", 25.0, 0, context)),
+                  child: botaoescolhas("B. $b", 25.0, 0, context)),
               Container(
                   padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                  child: botaoescolhas("C. 0,060m", 25.0, 0, context)),
+                  child: botaoescolhas("C. $c", 25.0, 0, context)),
               Container(
                   padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                  child: botaoescolhas("D. 37,50cm", 25.0, 0, context)),
+                  child: botaoescolhas("D. $d", 25.0, 0, context)),
             ]
         ),
       )
