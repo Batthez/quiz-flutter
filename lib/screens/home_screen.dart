@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quizapp/screens/play_screen.dart';
@@ -72,7 +73,9 @@ RaisedButton botao(String nomebotao, double tamanho, int opcao, BuildContext con
       onPressed: (){
         switch(opcao){
           case 0:
-            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => PlayScreen()));
+            Firestore.instance.collection("questoes").getDocuments().then((snapshot){
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => PlayScreen(snapshot.documents)));
+            });
             break;
           case 1:
             break;

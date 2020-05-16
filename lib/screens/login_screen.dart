@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quizapp/screens/home_screen.dart';
 import 'package:quizapp/screens/sign_up_screen.dart';
 import 'package:quizapp/user/user_logado.dart';
+
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -95,44 +95,44 @@ class _LoginScreenState extends State<LoginScreen> {
                                     bool senhaOk = verificacaoDosCampos(
                                         _passController.text);
 
-                                  if(emailOk && senhaOk){
+                                    if(emailOk && senhaOk){
 
                                       _auth.signInWithEmailAndPassword(email: _emailController.text, password: _passController.text)
-                                      .then((user){
+                                          .then((user){
                                         Firebase.usuarioLogado = user;
                                         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>  HomeScreen()));
                                       }).catchError((erro){
-
+                                        print(erro);
                                       });
-                                  }else{
+                                    }else{
 
-                                  }
-                                },
-                                padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                                    }
+                                  },
+                                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 3.0,),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: FlatButton(
-                                textColor: Colors.red,
-                                child:Text("Cadastre-se >"),
-                                onPressed: (){
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpScreen()));
+                              SizedBox(height: 3.0,),
+                              Container(
+                                alignment: Alignment.centerRight,
+                                child: FlatButton(
+                                  textColor: Colors.red,
+                                  child:Text("Cadastre-se >"),
+                                  onPressed: (){
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpScreen()));
 
-                                },
+                                  },
+                                ),
                               ),
-                            ),
 
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )
               )
-            )
-        ),
+          )
+      ),
 
     );
   }
