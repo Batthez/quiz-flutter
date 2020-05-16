@@ -5,7 +5,7 @@ import 'package:quizapp/screens/home_screen.dart';
 
 
 class HomeScreen extends StatelessWidget {
-  static const String _title = 'Flutter Code Sample';
+  static const String _title = 'Flutter Code';
 
   @override
   Widget build(BuildContext context) {
