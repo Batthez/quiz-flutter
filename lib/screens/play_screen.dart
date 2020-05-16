@@ -7,7 +7,6 @@ class PlayScreen extends StatefulWidget {
   var listaDeQuestoes;
 
 
-
   PlayScreen(this.listaDeQuestoes);
 
   @override
@@ -17,11 +16,13 @@ class PlayScreen extends StatefulWidget {
 class _PlayScreenState extends State<PlayScreen> {
   var numQuestao = 0;
   int a = 0, b = 1, c = 2, d = 3;
+  int score = 0;
   List<DocumentSnapshot> listaDeQuestoes = List();
 
   _PlayScreenState(this.listaDeQuestoes);
-  int _timer = 30;
-  String _mostrartimer = "30";
+  int _contador = 30;
+  Timer timer;
+  String _mostrartimer = "7";
   bool _cancelartimer = false;
 
   @override
@@ -32,17 +33,17 @@ class _PlayScreenState extends State<PlayScreen> {
 
   void startTimer() async {
     const onesec = Duration(seconds: 1);
-    Timer.periodic(onesec, (Timer t) {
+    timer = Timer.periodic(onesec, (Timer t) {
       setState(() {
-        if (_timer < 1) {
+        if (_contador < 1) {
           t.cancel();
           trocandoQuestao();
         } else if (_cancelartimer == true) {
           t.cancel();
         } else {
-          _timer = _timer - 1;
+          _contador = _contador - 1;
         }
-        _mostrartimer = _timer.toString();
+        _mostrartimer = _contador.toString();
         print(_mostrartimer);
       });
     });
@@ -117,21 +118,35 @@ class _PlayScreenState extends State<PlayScreen> {
           ),
         ),
         onPressed: () {
-          _cancelartimer = false;
-          trocandoQuestao( alternativas: alternativas);
+          verificaQuestao(alternativas);
         });
   }
 
-  void trocandoQuestao({int alternativas}) {
+  void trocandoQuestao() {
+    _cancelartimer = false;
+    _contador = 30;
     setState(() {
       Future.delayed(Duration(seconds: 3));
       if (numQuestao == listaDeQuestoes.length - 1) {
+      print(score);
       } else {
         numQuestao++;
       }
     });
+    startTimer();
   }
-  bool verificaQuestao(alternativas) {
-    return alternativas == listaDeQuestoes[numQuestao]["questaoCerta"];
+  void verificaQuestao(alternativas) {
+    timer.cancel();
+    _contador = 30;
+    if(alternativas == listaDeQuestoes[numQuestao]["questaoCerta"]) {
+      if(_contador > 20){
+        score += 10;
+      } else if(_contador>10){
+        score += 5;
+      }else{
+        score += 2;
+      }
+    }
+    trocandoQuestao();
   }
 }
