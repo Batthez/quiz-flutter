@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quizapp/screens/play_screen.dart';
+import 'package:quizapp/screens/loja_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -48,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                 Container(
                     height: 70.0,
                     padding: EdgeInsets.fromLTRB(80.0,0.0,80.0,0.0),
-                    child: botao('LOJA', 35.0, 1, context)
+                    child: botao('LOJA', 35.0, 2, context)
                 ),
               ],
             ),
@@ -77,6 +78,7 @@ RaisedButton botao(String nomebotao, double tamanho, int opcao, BuildContext con
           case 1:
             break;
           case 2:
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => LojaScreen()));
             break;
 
         }
