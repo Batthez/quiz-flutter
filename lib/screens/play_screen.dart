@@ -22,7 +22,7 @@ class _PlayScreenState extends State<PlayScreen> {
   _PlayScreenState(this.listaDeQuestoes);
   int _contador = 30;
   Timer timer;
-  String _mostrartimer = "7";
+  String _mostrartimer = "30";
   bool _cancelartimer = false;
 
   @override
