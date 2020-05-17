@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:quizapp/screens/score.dart';
 
 class PlayScreen extends StatefulWidget {
   var listaDeQuestoes;
@@ -24,6 +25,7 @@ class _PlayScreenState extends State<PlayScreen> {
   Timer timer;
   String _mostrartimer = "30";
   bool _cancelartimer = false;
+  int acerto = 0;
 
   @override
   void initState() {
@@ -128,7 +130,7 @@ class _PlayScreenState extends State<PlayScreen> {
     setState(() {
       Future.delayed(Duration(seconds: 3));
       if (numQuestao == listaDeQuestoes.length - 1) {
-      print(score);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScoreScreen(score,acerto)));
       } else {
         numQuestao++;
       }
@@ -139,6 +141,7 @@ class _PlayScreenState extends State<PlayScreen> {
     timer.cancel();
     _contador = 30;
     if(alternativas == listaDeQuestoes[numQuestao]["questaoCerta"]) {
+      acerto++;
       if(_contador > 20){
         score += 10;
       } else if(_contador>10){
