@@ -18,6 +18,7 @@ class _PlayScreenState extends State<PlayScreen> {
   var numQuestao = 0;
   int a = 0, b = 1, c = 2, d = 3;
   int score = 0;
+  double moedas = 0;
   List<DocumentSnapshot> listaDeQuestoes = List();
 
   _PlayScreenState(this.listaDeQuestoes);
@@ -130,7 +131,7 @@ class _PlayScreenState extends State<PlayScreen> {
     setState(() {
       Future.delayed(Duration(seconds: 3));
       if (numQuestao == listaDeQuestoes.length - 1) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScoreScreen(score,acerto)));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScoreScreen(score,acerto,moedas)));
       } else {
         numQuestao++;
       }
@@ -144,10 +145,13 @@ class _PlayScreenState extends State<PlayScreen> {
       acerto++;
       if(_contador > 20){
         score += 10;
+        moedas = score*(1.5);
       } else if(_contador>10){
         score += 5;
+        moedas = score*(2.0);
       }else{
         score += 2;
+        moedas = score*(2.5);
       }
     }
     trocandoQuestao();
