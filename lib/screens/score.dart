@@ -18,6 +18,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
   _ScoreScreenState(this.score,this.acerto,this.moedas);
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         body:Container(
 

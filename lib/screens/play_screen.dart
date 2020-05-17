@@ -47,7 +47,6 @@ class _PlayScreenState extends State<PlayScreen> {
           _contador = _contador - 1;
         }
         _mostrartimer = _contador.toString();
-        print(_mostrartimer);
       });
     });
   }
@@ -78,7 +77,7 @@ class _PlayScreenState extends State<PlayScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.fromLTRB(5.0, 30.0, 5.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 0.0),
                   child: Text(
                     "${listaDeQuestoes[numQuestao]["enunciado"]}",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
