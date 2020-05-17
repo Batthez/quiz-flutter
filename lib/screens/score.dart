@@ -31,25 +31,31 @@ class _ScoreScreenState extends State<ScoreScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Sumário:",textAlign:
-              TextAlign.center ,
-                style: TextStyle(
-                  color: Colors.amber,
-                  fontSize: 50.0,
+              Padding(
+                padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 25.0),
+                child: Text("Sumário:",textAlign:
+                TextAlign.center ,
+                  style: TextStyle(
+                    color: Colors.amber,
+                    fontSize: 50.0,
+                  ),
+                )
               ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+                child: Text("Sua pontuação foi: $score",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 35.0
+                  ),
+                ),
               ),
-              Text("$score",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 40.0
-              ),
-              ),
-              Text("$acerto",
+              Text("Total de acertos: $acerto",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 40.0
+                    fontSize: 35.0
                 ),
               )
             ],
