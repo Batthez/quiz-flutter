@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -103,10 +104,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                               password: _passController.text)
                                           .then((user) {
                                         Firebase.usuarioLogado = user;
-                                        Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    HomeScreen()));
+
+                                        Firestore.instance.collection("users").document(user.uid).get().then((user){
+                                          Firebase.dadosDoUsuario = user.data;
+                                          Navigator.of(context).pushReplacement(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      HomeScreen()));
+                                        });
+
                                       }).catchError((erro) {
                                         setandoErroNoText();
                                       });
