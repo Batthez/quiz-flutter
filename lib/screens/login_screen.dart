@@ -6,6 +6,7 @@ import 'package:quizapp/screens/home_screen.dart';
 import 'package:quizapp/screens/sign_up_screen.dart';
 import 'package:quizapp/user/user_logado.dart';
 
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
