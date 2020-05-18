@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:quizapp/screens/home_screen.dart';
+
 
 
 class HomeScreen extends StatelessWidget {
@@ -33,11 +33,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       style: optionStyle,
     ),
     Text(
-      'Avatares, se tiver',
+      'Os temas diferentes pra o perfil',
       style: optionStyle,
     ),
     Text(
-      'Os temas diferentes pra o perfil',
+      'Tela de cadastro',
       style: optionStyle,
     ),
   ];
@@ -54,7 +54,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              title: Text("   Loja         ",
+              title: Text("   Options         ",
                 style: TextStyle(
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold
@@ -101,12 +101,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     title: Text('Vantagens'),
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.accessibility),
-                    title: Text('Avatar'),
-                  ),
-                  BottomNavigationBarItem(
                     icon: Icon(Icons.format_paint),
                     title: Text('Temas'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.add_circle),
+                    title: Text('Cadastro'),
                   ),
                 ],
                 currentIndex: _selectedIndex,
