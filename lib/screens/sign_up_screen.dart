@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quizapp/screens/home_screen.dart';
 import 'package:quizapp/user/user_logado.dart';
 
 
@@ -14,6 +16,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _nameController = TextEditingController();
   final _passController = TextEditingController();
   final _emailController = TextEditingController();
+  bool _isLoading = false;
+  String validador = "";
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +95,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                                   ),
                                 ),
-                              ),                              SizedBox(height: 15.0,),
+                              ),
+                              SizedBox(height: 15.0,),
+                             Container(
+                               padding: EdgeInsets.all(10.0),
+                               child:  Text(
+                                 "$validador",
+                                 style: TextStyle(
+                                     color: Colors.red
+                                 ),
+                               ),
+                             ),
+
+                              _isLoading
+                                  ?
+                                  Container(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: CircularProgressIndicator(),
+                                  )
+                                  :
                               Container(
                                 width: 400.0,
                                 padding: EdgeInsets.all(10.0),
@@ -99,12 +121,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   color: Theme.of(context).primaryColor,
                                   textColor: Colors.white,
                                   child: Text("Cadastrar"),
-                                  onPressed: (){
-                                    _auth.createUserWithEmailAndPassword(email: _emailController.text, password: _passController.text)
-                                        .then((user){
-                                          Firebase.usuarioLogado = user;
-                                    });
-                                  },
+                                  onPressed: cliqueDoBotao,
                                   padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                                 ),
                               ),
@@ -120,5 +137,65 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
 
     );
+  }
+
+  void cliqueDoBotao(){
+
+    if(camposOk()){
+      setState(() {
+        _isLoading = true;
+      });
+      _auth.createUserWithEmailAndPassword(email: _emailController.text, password: _passController.text)
+          .then((user){
+        Map<String, dynamic> data = {
+          "email" : _emailController.text,
+          "moeda" : 0.0,
+          "nome" : _nameController.text,
+          "pontuacao": 0,
+          "tipoUsuario" : 0
+        };
+        Firebase.usuarioLogado = user;
+
+        _criandoUsuario(data,user);
+
+      }).catchError((erro){
+        setState(() {
+          _isLoading = false;
+          validador = "E-mail já em uso";
+        });
+      });
+    }else{
+      setState(() {
+        validador = "Informações incorretas! Cheque se campos estão vazios ou se a senha tem menos de 6 caracteres.";
+      });
+    }
+
+
+  }
+
+  void _criandoUsuario(Map<String,dynamic> data, FirebaseUser user){
+    Firestore.instance.collection("users").document(user.uid).setData(data).then((a){
+      setState(() {
+        _isLoading = false;
+      });
+      Navigator.pop(context);
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> HomeScreen()));
+    }).catchError((erro){
+      setState(() {
+        validador = erro;
+        _isLoading = false;
+      });
+    });
+  }
+
+  bool camposOk(){
+
+    String nome = _nameController.text;
+    String email = _emailController.text;
+    String senha = _passController.text;
+
+    return nome.isNotEmpty && email.isNotEmpty && senha.isNotEmpty && email.contains("@")
+            && senha.length >= 6;
+
   }
 }

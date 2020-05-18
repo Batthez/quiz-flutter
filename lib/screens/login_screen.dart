@@ -13,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
+  String loginValido = "";
 
   FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -52,31 +53,37 @@ class _LoginScreenState extends State<LoginScreen> {
                               SizedBox(
                                 height: 40.0,
                               ),
-                              Form(
-                                child: ListView(
-                                  padding: EdgeInsets.all(10.0),
-                                  children: <Widget>[
-                                    TextFormField(
-                                      controller: _emailController,
-                                      decoration: InputDecoration(
-                                          labelText: "E-mail",
-                                          border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.0)))),
-                                    ),
-                                    TextFormField(
-                                      controller: _passController,
-                                      obscureText: true,
-                                      decoration: InputDecoration(
-                                          labelText: "Senha",
-                                          border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.0)))),
-                                    ),
-                                  ],
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(10.0,0.0,10.0,10.0),
+                                child: TextField(
+                                  keyboardType: TextInputType.emailAddress,
+                                  controller: _emailController,
+                                  decoration: InputDecoration(
+                                      labelText: "E-mail",
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0)))),
                                 ),
                               ),
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(10.0,0.0,10.0,10.0),
+                                child: TextField(
+                                  controller: _passController,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                      labelText: "Senha",
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0)))),
+                                ),
 
+                              ),
+                              Container(
+                                child: Text(
+                                  "$loginValido",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ),
                               Container(
                                 width: 400.0,
                                 height: 70.0,
@@ -86,51 +93,60 @@ class _LoginScreenState extends State<LoginScreen> {
                                   textColor: Colors.white,
                                   child: Text("Login"),
                                   onPressed: () {
-                                    bool emailOk = verificacaoDosCampos(
-                                        _emailController.text);
-                                    bool senhaOk = verificacaoDosCampos(
-                                        _passController.text);
+                                    String email = _emailController.text;
+                                    String senha = _passController.text;
 
-                                  if(emailOk && senhaOk){
-
-                                      _auth.signInWithEmailAndPassword(email: _emailController.text, password: _passController.text)
-                                      .then((user){
+                                    if (email.contains("@") &&email.isNotEmpty && senha.isNotEmpty && senha.length >= 6) {
+                                      _auth
+                                          .signInWithEmailAndPassword(
+                                              email: _emailController.text,
+                                              password: _passController.text)
+                                          .then((user) {
                                         Firebase.usuarioLogado = user;
-                                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>  HomeScreen()));
-                                      }).catchError((erro){
-
+                                        Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    HomeScreen()));
+                                      }).catchError((erro) {
+                                        setandoErroNoText();
                                       });
-                                  }else{
-
-                                  }
-                                },
-                                padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                                    } else {
+                                      setandoErroNoText();
+                                    }
+                                  },
+                                  padding: EdgeInsets.fromLTRB(
+                                      10.0, 10.0, 10.0, 10.0),
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 3.0,),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: FlatButton(
-                                textColor: Colors.red,
-                                child:Text("Cadastre-se >"),
-                                onPressed: (){
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpScreen()));
-
-                                },
+                              SizedBox(
+                                height: 3.0,
                               ),
-                            ),
-
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              )
-            )
-        ),
-
+                              Container(
+                                alignment: Alignment.centerRight,
+                                child: FlatButton(
+                                  textColor: Colors.red,
+                                  child: Text("Cadastre-se >"),
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SignUpScreen()));
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )))),
     );
+  }
+
+  void setandoErroNoText(){
+    setState(() {
+      loginValido = "E-mail ou senha inválidos";
+    });
   }
 
   bool verificacaoDosCampos(String text) {
