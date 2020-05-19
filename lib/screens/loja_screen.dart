@@ -35,7 +35,7 @@ class _LojaScreenState extends State<LojaScreen> {
     });
   }
 
-//-----------------------------------------------------
+//------------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
         return Scaffold(
@@ -69,9 +69,7 @@ class _LojaScreenState extends State<LojaScreen> {
                   return IconButton(
                     icon: const Icon(Icons.account_circle),
                     onPressed: () {
-                      setState(() {Navigator.push(context, MaterialPageRoute(
-                        builder: (BuildContext context) => LojaScreen()));
-                    });
+                      Navigator.pop(context);
                     });
                 },
               ),
