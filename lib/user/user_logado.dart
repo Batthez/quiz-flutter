@@ -26,4 +26,22 @@ class Firebase{
     }
   }
 
+  static void cadastrandoQuestaoNoFirebase(
+      @required List<String> alternativas,
+      @required String enunciado,
+      @required String materia,
+      @required int posicaoDaQuestaoCorreta,
+      @required VoidCallback sucesso ){
+
+      Map<String,dynamic> data = {
+        "alternativas" : alternativas,
+        "enunciado" : enunciado,
+        "materia" : materia,
+        "questaoCerta" : posicaoDaQuestaoCorreta
+      };
+      Firestore.instance.collection("questoes").document().setData(data).then((ok){
+        sucesso;
+      });
+  }
+
 }
