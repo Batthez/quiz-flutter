@@ -21,7 +21,7 @@ class _QuestaoScreenState extends State<QuestaoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
           title: Text('Cadastro de Questões'),
