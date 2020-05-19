@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:quizapp/screens/home_screen.dart';
+import 'package:quizapp/user/user_logado.dart';
 
 class ScoreScreen extends StatefulWidget {
   int score;
@@ -18,7 +19,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
   _ScoreScreenState(this.score,this.acerto,this.moedas);
   @override
   Widget build(BuildContext context) {
-
+    Firebase.adicionandoDados(moedas, score, (){});
     return Scaffold(
         body:Container(
 
@@ -53,7 +54,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 35.0
+                      fontSize: 32.0
                   ),
                 ),
               ),
@@ -61,7 +62,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 35.0
+                    fontSize: 32.0
                 ),
               ),
               Padding(
