@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "17738303470",
+    "firebase_url": "https://quiz-flutter-4bf66.firebaseio.com",
+    "project_id": "quiz-flutter-4bf66",
+    "storage_bucket": "quiz-flutter-4bf66.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17738303470:android:f2ffb81e3622cb3f0b70ff",
+        "android_client_info": {
+          "package_name": "com.matheusgeiser.quizapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "17738303470-7rraqu17bkn8mnp24465ognrjqibibkq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHJgVKdN3ql2PNklTvUdVKFl9u2Xg3BD8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "17738303470-7rraqu17bkn8mnp24465ognrjqibibkq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

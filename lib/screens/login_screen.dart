@@ -1,6 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quizapp/screens/home_screen.dart';
+import 'package:quizapp/screens/sign_up_screen.dart';
+import 'package:quizapp/user/user_logado.dart';
+
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -10,6 +15,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
+  String loginValido = "";
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +56,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 40.0,
                               ),
                               Padding(
-                                padding: EdgeInsets.all(10.0),
+                                padding: EdgeInsets.fromLTRB(10.0,0.0,10.0,10.0),
                                 child: TextField(
+                                  keyboardType: TextInputType.emailAddress,
                                   controller: _emailController,
                                   decoration: InputDecoration(
                                       labelText: "E-mail",
@@ -58,11 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                               Radius.circular(10.0)))),
                                 ),
                               ),
-                              SizedBox(
-                                height: 15.0,
-                              ),
                               Padding(
-                                padding: EdgeInsets.all(10.0),
+                                padding: EdgeInsets.fromLTRB(10.0,0.0,10.0,10.0),
                                 child: TextField(
                                   controller: _passController,
                                   obscureText: true,
@@ -72,29 +78,48 @@ class _LoginScreenState extends State<LoginScreen> {
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10.0)))),
                                 ),
+
                               ),
-                              SizedBox(
-                                height: 15.0,
+                              Container(
+                                child: Text(
+                                  "$loginValido",
+                                  style: TextStyle(color: Colors.red),
+                                ),
                               ),
                               Container(
                                 width: 400.0,
+                                height: 70.0,
                                 padding: EdgeInsets.all(10.0),
                                 child: RaisedButton(
                                   color: Theme.of(context).primaryColor,
                                   textColor: Colors.white,
                                   child: Text("Login"),
                                   onPressed: () {
-                                    bool emailOk = verificacaoDosCampos(
-                                        _emailController.text);
-                                    bool senhaOk = verificacaoDosCampos(
-                                        _passController.text);
+                                    String email = _emailController.text;
+                                    String senha = _passController.text;
 
-                                    if (emailOk && senhaOk) {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  HomeScreen()));
-                                    } else {}
+                                    if (email.contains("@") &&email.isNotEmpty && senha.isNotEmpty && senha.length >= 6) {
+                                      _auth
+                                          .signInWithEmailAndPassword(
+                                              email: _emailController.text,
+                                              password: _passController.text)
+                                          .then((user) {
+                                        Firebase.usuarioLogado = user;
+
+                                        Firestore.instance.collection("users").document(user.uid).get().then((user){
+                                          Firebase.dadosDoUsuario = user.data;
+                                          Navigator.of(context).pushReplacement(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      HomeScreen()));
+                                        });
+
+                                      }).catchError((erro) {
+                                        setandoErroNoText();
+                                      });
+                                    } else {
+                                      setandoErroNoText();
+                                    }
                                   },
                                   padding: EdgeInsets.fromLTRB(
                                       10.0, 10.0, 10.0, 10.0),
@@ -108,7 +133,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: FlatButton(
                                   textColor: Colors.red,
                                   child: Text("Cadastre-se >"),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SignUpScreen()));
+                                  },
                                 ),
                               ),
                             ],
@@ -118,6 +148,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   )))),
     );
+  }
+
+  void setandoErroNoText(){
+    setState(() {
+      loginValido = "E-mail ou senha inválidos";
+    });
   }
 
   bool verificacaoDosCampos(String text) {
