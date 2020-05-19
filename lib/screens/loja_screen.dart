@@ -54,7 +54,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              title: Text("   Options         ",
+              title: Text("   Loja         ",
                 style: TextStyle(
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold
