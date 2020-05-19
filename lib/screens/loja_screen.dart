@@ -3,27 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 
-
-class HomeScreen extends StatelessWidget {
-  static const String _title = 'Flutter Code ';
-
+class LojaScreen extends StatefulWidget {
+  LojaScreen({Key key}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: MyStatefulWidget(),
-    );
-  }
+  _LojaScreenState createState() => _LojaScreenState();
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
 
-  @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _LojaScreenState extends State<LojaScreen> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -83,7 +70,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     icon: const Icon(Icons.account_circle),
                     onPressed: () {
                       setState(() {Navigator.push(context, MaterialPageRoute(
-                        builder: (BuildContext context) => HomeScreen()));
+                        builder: (BuildContext context) => LojaScreen()));
                     });
                     });
                 },
@@ -120,23 +107,3 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
 //------------------------------------------------------------------------------
 
-class LojaScreen extends StatefulWidget {
-  @override
-  _LojaScreenState createState() => _LojaScreenState();
-}
-
-class _LojaScreenState extends State<LojaScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: "Loja",
-        theme: ThemeData(
-            primarySwatch: Colors.blue,
-            primaryColor: Color.fromARGB(255, 4, 125, 141)
-        ),
-        debugShowCheckedModeBanner: false,
-        home: HomeScreen()
-    );
-  }
-
-}
