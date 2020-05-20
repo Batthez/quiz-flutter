@@ -18,6 +18,7 @@ class _QuestaoScreenState extends State<QuestaoScreen> {
   var dController = TextEditingController();
   var corretaController = TextEditingController();
   bool carregando = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,71 +29,91 @@ class _QuestaoScreenState extends State<QuestaoScreen> {
         ),
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
-              TextField(
-                  controller: materiaController,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                      labelText: "Digite a Materia",
-                      border: OutlineInputBorder())),
-              TextField(
-                  controller: enunciadoController,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                      labelText: "Digite o Enunciado da Quetão",
-                      border: OutlineInputBorder())),
-              TextField(
-                  controller: aController,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                      labelText: "Digite a Alternativa (A)",
-                      border: OutlineInputBorder())),
-              TextField(
-                  controller: bController,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                      labelText: "Digite a Alternativa (B)",
-                      border: OutlineInputBorder())),
-              TextField(
-                  controller: cController,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                      labelText: "Digite a Alternativa (C)",
-                      border: OutlineInputBorder())),
-              TextField(
-                  controller: dController,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                      labelText: "Digite a Alternativa (D)",
-                      border: OutlineInputBorder())),
-              TextField(
-                  controller: corretaController,
-                  style: TextStyle(color: Colors.black),
-                  maxLength: 1,
-                  decoration: InputDecoration(
-                      labelText: "Digite a Letra da Alternativa Correta! ",
-                      border: OutlineInputBorder())),
-              Text(
-                erro,
-                style: TextStyle(color: Colors.red),
-              ),
-              carregando?
-                  CircularProgressIndicator()
-                  :
-              Column(
-                children: <Widget>[
-                  RaisedButton(
-                    color: Colors.deepPurple,
-                    splashColor: Colors.white,
-                    elevation: 4.0,
-                    child: Text(
-                      'Cadastrar',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onPressed: cliqueDoBotao,
-                  )
-                ],
-              ),
-            ])));
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: TextField(
+                controller: materiaController,
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                    labelText: "Digite a Materia",
+                    border: OutlineInputBorder())),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: TextField(
+                controller: enunciadoController,
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                    labelText: "Digite o Enunciado da Quetão",
+                    border: OutlineInputBorder())),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: TextField(
+                controller: aController,
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                    labelText: "Digite a Alternativa (A)",
+                    border: OutlineInputBorder())),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: TextField(
+                controller: bController,
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                    labelText: "Digite a Alternativa (B)",
+                    border: OutlineInputBorder())),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: TextField(
+                controller: cController,
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                    labelText: "Digite a Alternativa (C)",
+                    border: OutlineInputBorder())),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: TextField(
+                controller: dController,
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                    labelText: "Digite a Alternativa (D)",
+                    border: OutlineInputBorder())),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: TextField(
+                controller: corretaController,
+                style: TextStyle(color: Colors.black),
+                maxLength: 1,
+                decoration: InputDecoration(
+                    labelText: "Digite a Letra da Alternativa Correta! ",
+                    border: OutlineInputBorder())),
+          ),
+          Text(
+            erro,
+            style: TextStyle(color: Colors.red),
+          ),
+          carregando
+              ? CircularProgressIndicator()
+              : Column(
+                  children: <Widget>[
+                    RaisedButton(
+                      color: Colors.deepPurple,
+                      splashColor: Colors.white,
+                      elevation: 4.0,
+                      child: Text(
+                        'Cadastrar',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: cliqueDoBotao,
+                    )
+                  ],
+                ),
+        ])));
   }
 
   void cliqueDoBotao() {
@@ -138,9 +159,13 @@ class _QuestaoScreenState extends State<QuestaoScreen> {
         setState(() {
           carregando = true;
         });
+        print(carregando);
+
         Firebase.cadastrandoQuestaoNoFirebase(
             listaDeAlternativa, enunciado, materia, questaoCerta, () {
-               print("Cadastrou");
+          print("Cadastrou");
+          print(carregando);
+
           setState(() {
             carregando = false;
             materiaController.text = "";
@@ -151,12 +176,11 @@ class _QuestaoScreenState extends State<QuestaoScreen> {
             dController.text = "";
             corretaController.text = "";
           });
-        },()
-        {
+        }, () {
           setState(() {
             carregando = false;
           });
-        print("error");
+          print("error");
         });
       }
     }
