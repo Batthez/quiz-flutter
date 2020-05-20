@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quizapp/screens/Ranking.dart';
 import 'package:quizapp/screens/play_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -80,6 +81,7 @@ RaisedButton botao(String nomebotao, double tamanho, int opcao, BuildContext con
           case 1:
             break;
           case 2:
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RankingScreen()));
             break;
 
         }
