@@ -83,7 +83,9 @@ RaisedButton botao(String nomebotao, double tamanho, int opcao, BuildContext con
             Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => QuestaoScreen()));
             break;
           case 2:
-            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RankingScreen()));
+            Firestore.instance.collection("users").getDocuments().then((usuarios){
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RankingScreen(usuarios.documents)));
+            });
             break;
 
         }
