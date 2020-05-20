@@ -140,7 +140,7 @@ class _QuestaoScreenState extends State<QuestaoScreen> {
         });
         Firebase.cadastrandoQuestaoNoFirebase(
             listaDeAlternativa, enunciado, materia, questaoCerta, () {
-
+               print("Cadastrou");
           setState(() {
             carregando = false;
             materiaController.text = "";
@@ -151,6 +151,12 @@ class _QuestaoScreenState extends State<QuestaoScreen> {
             dController.text = "";
             corretaController.text = "";
           });
+        },()
+        {
+          setState(() {
+            carregando = false;
+          });
+        print("error");
         });
       }
     }
