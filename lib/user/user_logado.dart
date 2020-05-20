@@ -31,8 +31,9 @@ class Firebase{
       @required String enunciado,
       @required String materia,
       @required int posicaoDaQuestaoCorreta,
-      @required VoidCallback sucesso ){
-
+      @required VoidCallback sucesso,
+      @required VoidCallback error) {
+      print("carregando");
       Map<String,dynamic> data = {
         "alternativas" : alternativas,
         "enunciado" : enunciado,
@@ -41,6 +42,11 @@ class Firebase{
       };
       Firestore.instance.collection("questoes").document().setData(data).then((ok){
         sucesso;
+        print("funcionou");
+
+      }).catchError((erro){
+        error;
+        print(erro);
       });
   }
 
