@@ -41,7 +41,7 @@ class Firebase{
         "questaoCerta" : posicaoDaQuestaoCorreta
       };
       Firestore.instance.collection("questoes").document().setData(data).then((ok){
-        sucesso.;
+        sucesso;
         print("funcionou");
 
       }).catchError((erro){
