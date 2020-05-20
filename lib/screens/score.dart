@@ -67,7 +67,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 70.0),
-                child: Text("Moedas: +$moedas",
+                child: Text("",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.yellow,
@@ -92,7 +92,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                       ),
                     ),
                     onPressed: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+                      Navigator.pop(context);
                     },
                   )
               )

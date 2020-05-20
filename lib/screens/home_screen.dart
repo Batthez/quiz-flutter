@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                 Container(
                     height: 70.0,
                     padding: EdgeInsets.fromLTRB(80.0,0.0,80.0,0.0),
-                    child: botao('LOJA', 35.0, 2, context)
+                    child: botao('RANKING', 35.0, 2, context)
                 ),
               ],
             ),
