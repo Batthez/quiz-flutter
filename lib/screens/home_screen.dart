@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quizapp/screens/play_screen.dart';
+import 'package:quizapp/screens/questoes.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -78,6 +79,7 @@ RaisedButton botao(String nomebotao, double tamanho, int opcao, BuildContext con
             });
             break;
           case 1:
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => QuestaoScreen()));
             break;
           case 2:
             break;
