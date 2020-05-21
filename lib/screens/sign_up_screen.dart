@@ -3,8 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quizapp/user/user_logado.dart';
 
-import 'home_screen.dart';
-
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -180,7 +178,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         _isLoading = false;
       });
       Navigator.pop(context);
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> HomeScreen()));
     }).catchError((erro){
       setState(() {
         validador = erro;
