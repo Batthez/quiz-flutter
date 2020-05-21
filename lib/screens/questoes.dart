@@ -1,5 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:quizapp/user/user_logado.dart';
 
 class QuestaoScreen extends StatefulWidget {
   @override
@@ -8,7 +8,7 @@ class QuestaoScreen extends StatefulWidget {
 
 class _QuestaoScreenState extends State<QuestaoScreen> {
   String tituloSecao = '';
-  String erro = "";
+  String aviso = "";
   String labeltext = '';
   var materiaController = TextEditingController();
   var enunciadoController = TextEditingController();
@@ -18,6 +18,7 @@ class _QuestaoScreenState extends State<QuestaoScreen> {
   var dController = TextEditingController();
   var corretaController = TextEditingController();
   bool carregando = false;
+  var corDoTextoDeAviso = Colors.red;
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +95,8 @@ class _QuestaoScreenState extends State<QuestaoScreen> {
                     border: OutlineInputBorder())),
           ),
           Text(
-            erro,
-            style: TextStyle(color: Colors.red),
+            aviso,
+            style: TextStyle(color: corDoTextoDeAviso),
           ),
           carregando
               ? CircularProgressIndicator()
@@ -136,11 +137,11 @@ class _QuestaoScreenState extends State<QuestaoScreen> {
           correta != "C" &&
           correta != "D") {
         setState(() {
-          erro = "Alternativa Invalida";
+          aviso = "Alternativa Invalida";
         });
       } else {
         setState(() {
-          erro = "";
+          aviso = "";
         });
         var listaDeAlternativa = [A, B, C, D];
         int questaoCerta = -1;
@@ -159,13 +160,14 @@ class _QuestaoScreenState extends State<QuestaoScreen> {
         setState(() {
           carregando = true;
         });
-        print(carregando);
 
-        Firebase.cadastrandoQuestaoNoFirebase(
-            listaDeAlternativa, enunciado, materia, questaoCerta, () {
-          print("Cadastrou");
-          print(carregando);
-
+        Map<String,dynamic> data = {
+          "alternativas" : listaDeAlternativa,
+          "enunciado" : enunciado,
+          "materia" : materia,
+          "questaoCerta" : questaoCerta
+        };
+        Firestore.instance.collection("questoes").document().setData(data).then((ok){
           setState(() {
             carregando = false;
             materiaController.text = "";
@@ -175,14 +177,20 @@ class _QuestaoScreenState extends State<QuestaoScreen> {
             cController.text = "";
             dController.text = "";
             corretaController.text = "";
+            corDoTextoDeAviso = Colors.green;
+            aviso = "Cadastrado com Sucesso!!";
           });
-        }, () {
-          setState(() {
-            carregando = false;
-          });
-          print("error");
+
+        }).catchError((erro){
+          print(erro);
         });
+
       }
+    }else{
+      setState(() {
+        aviso = "Preencha todos os campos!!";
+        corDoTextoDeAviso = Colors.red;
+      });
     }
   }
 }
