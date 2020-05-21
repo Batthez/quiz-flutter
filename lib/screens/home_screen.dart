@@ -90,13 +90,10 @@ RaisedButton botao(String nomebotao, double tamanho, int opcao, BuildContext con
               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RankingScreen(usuarios.documents)));
             });
             break;
-
         }
       }
     );
-
 }
-
   bool ehProfessor(){
     return Firebase.dadosDoUsuario["tipoUsuario"] == 1;
   }
