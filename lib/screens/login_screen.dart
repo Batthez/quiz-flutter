@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:quizapp/screens/home_screen.dart';
 import 'package:quizapp/screens/sign_up_screen.dart';
 import 'package:quizapp/user/user_logado.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -16,11 +16,36 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
   String loginValido = "";
-
   FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _carregando = false;
+  bool _temUsuarioSalvo = false;
 
   @override
   Widget build(BuildContext context) {
+    /*temUsuarioLogado().then((temUsuario) async {
+      if (temUsuario) {
+        setState(() {
+          _temUsuarioSalvo = true;
+        });
+
+        SharedPreferences.getInstance().then((prefs){
+          Firestore.instance
+              .collection("users")
+              .document(prefs.getString("userId"))
+              .get()
+              .then((user) {
+            Firebase.dadosDoUsuario =
+                user.data;
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+              });
+
+
+        });
+
+
+      }
+    });*/
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -32,128 +57,162 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           padding: EdgeInsets.all(30.0),
           child: Center(
-              child: Padding(
-                  padding: EdgeInsets.only(top: 40.0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        Card(
-                          elevation: 5,
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                height: 50.0,
-                              ),
-                              Text(
-                                "Faça seu login ou cadastre-se",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 28.0,
-                                    fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(
-                                height: 40.0,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(10.0,0.0,10.0,10.0),
-                                child: TextField(
-                                  keyboardType: TextInputType.emailAddress,
-                                  controller: _emailController,
-                                  decoration: InputDecoration(
-                                      labelText: "E-mail",
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10.0)))),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(10.0,0.0,10.0,10.0),
-                                child: TextField(
-                                  controller: _passController,
-                                  obscureText: true,
-                                  decoration: InputDecoration(
-                                      labelText: "Senha",
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10.0)))),
-                                ),
+              child: _temUsuarioSalvo
+                  ? CircularProgressIndicator()
+                  : Padding(
+                      padding: EdgeInsets.only(top: 40.0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            Card(
+                              elevation: 5,
+                              child: Column(
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 50.0,
+                                  ),
+                                  Text(
+                                    "Faça seu login ou cadastre-se",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 28.0,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                    height: 40.0,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        10.0, 0.0, 10.0, 10.0),
+                                    child: TextField(
+                                      keyboardType: TextInputType.emailAddress,
+                                      controller: _emailController,
+                                      decoration: InputDecoration(
+                                          labelText: "E-mail",
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10.0)))),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        10.0, 0.0, 10.0, 10.0),
+                                    child: TextField(
+                                      controller: _passController,
+                                      obscureText: true,
+                                      decoration: InputDecoration(
+                                          labelText: "Senha",
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10.0)))),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      "$loginValido",
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 400.0,
+                                    height: 70.0,
+                                    padding: EdgeInsets.all(10.0),
+                                    child: _carregando
+                                        ? CircularProgressIndicator()
+                                        : RaisedButton(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            textColor: Colors.white,
+                                            child: Text("Login"),
+                                            onPressed: () {
+                                              setState(() {
+                                                _carregando = true;
+                                              });
+                                              String email =
+                                                  _emailController.text;
+                                              String senha =
+                                                  _passController.text;
 
-                              ),
-                              Container(
-                                child: Text(
-                                  "$loginValido",
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                              ),
-                              Container(
-                                width: 400.0,
-                                height: 70.0,
-                                padding: EdgeInsets.all(10.0),
-                                child: RaisedButton(
-                                  color: Theme.of(context).primaryColor,
-                                  textColor: Colors.white,
-                                  child: Text("Login"),
-                                  onPressed: () {
-                                    String email = _emailController.text;
-                                    String senha = _passController.text;
+                                              if (email.contains("@") &&
+                                                  email.isNotEmpty &&
+                                                  senha.isNotEmpty &&
+                                                  senha.length >= 6) {
+                                                _auth
+                                                    .signInWithEmailAndPassword(
+                                                        email: _emailController
+                                                            .text,
+                                                        password:
+                                                            _passController
+                                                                .text)
+                                                    .then((user) {
+                                                  Firebase.usuarioLogado = user;
 
-                                    if (email.contains("@") &&email.isNotEmpty && senha.isNotEmpty && senha.length >= 6) {
-                                      _auth
-                                          .signInWithEmailAndPassword(
-                                              email: _emailController.text,
-                                              password: _passController.text)
-                                          .then((user) {
-                                        Firebase.usuarioLogado = user;
+                                                  Firestore.instance
+                                                      .collection("users")
+                                                      .document(user.uid)
+                                                      .get()
+                                                      .then((user) {
+                                                    Firebase.dadosDoUsuario =
+                                                        user.data;
 
-                                        Firestore.instance.collection("users").document(user.uid).get().then((user){
-                                          Firebase.dadosDoUsuario = user.data;
-                                          Navigator.of(context).pushReplacement(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      HomeScreen()));
-                                        });
+                                                  /*  SharedPreferences.getInstance().then((prefs){
+                                                      prefs.setString("userId", user.documentID);
+                                                    });*/
 
-                                      }).catchError((erro) {
-                                        setandoErroNoText();
-                                      });
-                                    } else {
-                                      setandoErroNoText();
-                                    }
-                                  },
-                                  padding: EdgeInsets.fromLTRB(
-                                      10.0, 10.0, 10.0, 10.0),
-                                ),
+                                                    Navigator.of(context)
+                                                        .pushReplacement(
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        HomeScreen()));
+                                                  });
+                                                }).catchError((erro) {
+                                                  setandoErroNoText();
+                                                });
+                                              } else {
+                                                setandoErroNoText();
+                                              }
+                                            },
+                                            padding: EdgeInsets.fromLTRB(
+                                                10.0, 10.0, 10.0, 10.0),
+                                          ),
+                                  ),
+                                  SizedBox(
+                                    height: 3.0,
+                                  ),
+                                  Container(
+                                    alignment: Alignment.centerRight,
+                                    child: FlatButton(
+                                      textColor: Colors.red,
+                                      child: Text("Cadastre-se >"),
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SignUpScreen()));
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                height: 3.0,
-                              ),
-                              Container(
-                                alignment: Alignment.centerRight,
-                                child: FlatButton(
-                                  textColor: Colors.red,
-                                  child: Text("Cadastre-se >"),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                SignUpScreen()));
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  )))),
+                            )
+                          ],
+                        ),
+                      )))),
     );
   }
 
-  void setandoErroNoText(){
+  void setandoErroNoText() {
     setState(() {
       loginValido = "E-mail ou senha inválidos";
+      _carregando = false;
     });
+  }
+
+  Future<bool> temUsuarioLogado() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getString("userId") != null;
   }
 
   bool verificacaoDosCampos(String text) {

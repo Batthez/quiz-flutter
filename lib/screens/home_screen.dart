@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:quizapp/screens/Ranking.dart';
 import 'package:quizapp/screens/play_screen.dart';
 import 'package:quizapp/screens/questoes.dart';
+import 'package:quizapp/user/user_logado.dart';
 
 import 'login_screen.dart';
 
@@ -12,7 +13,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
       body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -45,11 +45,14 @@ class HomeScreen extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(20.0,0.0,20.0,5.0),
                     child: botao('JOGAR', 60.0, 0, context)
                 ),
+
+                ehProfessor()?
                 Container(
                     height: 80.0,
                     padding: EdgeInsets.fromLTRB(40.0,0.0,40.0,5.0),
                     child: botao('CADASTRAR', 40.0, 1, context)
-                ),
+                ) :
+                    Container(),
                 Container(
                     height: 70.0,
                     padding: EdgeInsets.fromLTRB(80.0,0.0,80.0,0.0),
@@ -99,7 +102,12 @@ RaisedButton botao(String nomebotao, double tamanho, int opcao, BuildContext con
         }
       }
     );
+
 }
+
+  bool ehProfessor(){
+    return Firebase.dadosDoUsuario["tipoUsuario"] == 1;
+  }
 }
 
 
