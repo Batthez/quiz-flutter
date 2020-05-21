@@ -73,9 +73,7 @@ class _RankingScreenState extends State<RankingScreen> {
         ),
       ),
     );
-
   }
-
   void organizandoListaDeUsuarios() {
     for (int i = 0; i < usuarios.length; i++) {
       Map<String, dynamic> dado = {
