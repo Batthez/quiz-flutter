@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quizapp/screens/Ranking.dart';
-import 'package:quizapp/screens/play_screen.dart';
-import 'package:quizapp/screens/questoes.dart';
-import 'package:quizapp/user/user_logado.dart';
+import 'package:QuizApp_G11/screens/Ranking.dart';
+import 'package:QuizApp_G11/screens/play_screen.dart';
+import 'package:QuizApp_G11/screens/questoes.dart';
+import 'package:QuizApp_G11/user/user_logado.dart';
 
 import 'login_screen.dart';
 
@@ -98,13 +98,10 @@ RaisedButton botao(String nomebotao, double tamanho, int opcao, BuildContext con
               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RankingScreen(usuarios.documents)));
             });
             break;
-
         }
       }
     );
-
 }
-
   bool ehProfessor(){
     return Firebase.dadosDoUsuario["tipoUsuario"] == 1;
   }
