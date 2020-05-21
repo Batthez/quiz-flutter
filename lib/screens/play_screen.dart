@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:QuizApp_G11/screens/score.dart';
+import 'package:quizapp/screens/score.dart';
 
 class PlayScreen extends StatefulWidget {
   var listaDeQuestoes;

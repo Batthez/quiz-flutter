@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:QuizApp_G11/screens/home_screen.dart';
-import 'package:QuizApp_G11/user/user_logado.dart';
+import 'package:quizapp/user/user_logado.dart';
+
+import 'home_screen.dart';
 
 
 class SignUpScreen extends StatefulWidget {

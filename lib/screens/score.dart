@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:QuizApp_G11/screens/home_screen.dart';
-import 'package:QuizApp_G11/user/user_logado.dart';
+import 'package:quizapp/user/user_logado.dart';
 
 class ScoreScreen extends StatefulWidget {
   int score;

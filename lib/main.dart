@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:QuizApp_G11/screens/home_screen.dart';
-import 'package:QuizApp_G11/screens/login_screen.dart';
+import 'package:quizapp/screens/login_screen.dart';
 
 void main() => runApp(MyApp());
 
