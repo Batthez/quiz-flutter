@@ -114,69 +114,69 @@ class _LoginScreenState extends State<LoginScreen> {
                                       style: TextStyle(color: Colors.red),
                                     ),
                                   ),
+                                  _carregando?
+                                      CircularProgressIndicator():
                                   Container(
                                     width: 400.0,
                                     height: 70.0,
                                     padding: EdgeInsets.all(10.0),
-                                    child: _carregando
-                                        ? CircularProgressIndicator()
-                                        : RaisedButton(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            textColor: Colors.white,
-                                            child: Text("Login"),
-                                            onPressed: () {
-                                              setState(() {
-                                                _carregando = true;
-                                              });
-                                              String email =
-                                                  _emailController.text;
-                                              String senha =
-                                                  _passController.text;
+                                    child:  RaisedButton(
+                                      color:
+                                      Theme.of(context).primaryColor,
+                                      textColor: Colors.white,
+                                      child: Text("Login"),
+                                      onPressed: () {
+                                        setState(() {
+                                          _carregando = true;
+                                        });
+                                        String email =
+                                            _emailController.text;
+                                        String senha =
+                                            _passController.text;
 
-                                              if (email.contains("@") &&
-                                                  email.isNotEmpty &&
-                                                  senha.isNotEmpty &&
-                                                  senha.length >= 6) {
-                                                _auth
-                                                    .signInWithEmailAndPassword(
-                                                        email: _emailController
-                                                            .text,
-                                                        password:
-                                                            _passController
-                                                                .text)
-                                                    .then((user) {
-                                                  Firebase.usuarioLogado = user;
+                                        if (email.contains("@") &&
+                                            email.isNotEmpty &&
+                                            senha.isNotEmpty &&
+                                            senha.length >= 6) {
+                                          _auth
+                                              .signInWithEmailAndPassword(
+                                              email: _emailController
+                                                  .text,
+                                              password:
+                                              _passController
+                                                  .text)
+                                              .then((user) {
+                                            Firebase.usuarioLogado = user;
 
-                                                  Firestore.instance
-                                                      .collection("users")
-                                                      .document(user.uid)
-                                                      .get()
-                                                      .then((user) {
-                                                    Firebase.dadosDoUsuario =
-                                                        user.data;
+                                            Firestore.instance
+                                                .collection("users")
+                                                .document(user.uid)
+                                                .get()
+                                                .then((user) {
+                                              Firebase.dadosDoUsuario =
+                                                  user.data;
 
-                                                  /*  SharedPreferences.getInstance().then((prefs){
+                                              /*  SharedPreferences.getInstance().then((prefs){
                                                       prefs.setString("userId", user.documentID);
                                                     });*/
 
-                                                    Navigator.of(context)
-                                                        .pushReplacement(
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        HomeScreen()));
-                                                  });
-                                                }).catchError((erro) {
-                                                  setandoErroNoText();
-                                                });
-                                              } else {
-                                                setandoErroNoText();
-                                              }
-                                            },
-                                            padding: EdgeInsets.fromLTRB(
-                                                10.0, 10.0, 10.0, 10.0),
-                                          ),
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                          HomeScreen()));
+                                            });
+                                          }).catchError((erro) {
+                                            setandoErroNoText();
+                                          });
+                                        } else {
+                                          setandoErroNoText();
+                                        }
+                                      },
+                                      padding: EdgeInsets.fromLTRB(
+                                          10.0, 10.0, 10.0, 10.0),
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 3.0,
