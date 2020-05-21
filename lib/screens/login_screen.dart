@@ -22,30 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    /*temUsuarioLogado().then((temUsuario) async {
-      if (temUsuario) {
-        setState(() {
-          _temUsuarioSalvo = true;
-        });
-
-        SharedPreferences.getInstance().then((prefs){
-          Firestore.instance
-              .collection("users")
-              .document(prefs.getString("userId"))
-              .get()
-              .then((user) {
-            Firebase.dadosDoUsuario =
-                user.data;
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-              });
-
-
-        });
-
-
-      }
-    });*/
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -155,10 +131,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 .then((user) {
                                               Firebase.dadosDoUsuario =
                                                   user.data;
-
-                                              /*  SharedPreferences.getInstance().then((prefs){
-                                                      prefs.setString("userId", user.documentID);
-                                                    });*/
 
                                               Navigator.of(context)
                                                   .pushReplacement(
