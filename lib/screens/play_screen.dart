@@ -68,7 +68,6 @@ class _PlayScreenState extends State<PlayScreen> {
               fontSize: 25.0,
             ),
           ),
-
           centerTitle: true,
           backgroundColor: Colors.deepPurple,
         ),

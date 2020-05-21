@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:quizapp/screens/home_screen.dart';
 import 'package:quizapp/screens/sign_up_screen.dart';
 import 'package:quizapp/user/user_logado.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -208,11 +208,6 @@ class _LoginScreenState extends State<LoginScreen> {
       loginValido = "E-mail ou senha inválidos";
       _carregando = false;
     });
-  }
-
-  Future<bool> temUsuarioLogado() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.getString("userId") != null;
   }
 
   bool verificacaoDosCampos(String text) {
