@@ -57,12 +57,15 @@ class _RankingScreenState extends State<RankingScreen> {
                 color: posicao == 0? Colors.amber : posicao == 1? Colors.grey : posicao == 2? Colors.deepOrangeAccent : Colors.black
               ),),
               SizedBox(width: 6.0,),
-              Text(rank[posicao]["nome"]),
+              Text(rank[posicao]["nome"],
+                style: TextStyle(
+                    color: posicao == 0? Colors.amber : posicao == 1? Colors.grey : posicao == 2? Colors.deepOrangeAccent : Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               SizedBox(width: 20.0,),
               Text("Pontuação: ${rank[posicao]["pontuacao"]}",
-                style: TextStyle(
-
-                ),
+                style: TextStyle(),
                 textAlign: TextAlign.right,
               )
             ],
@@ -70,9 +73,7 @@ class _RankingScreenState extends State<RankingScreen> {
         ),
       ),
     );
-
   }
-
   void organizandoListaDeUsuarios() {
     for (int i = 0; i < usuarios.length; i++) {
       Map<String, dynamic> dado = {
