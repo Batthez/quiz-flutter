@@ -5,6 +5,8 @@ import 'package:quizapp/screens/Ranking.dart';
 import 'package:quizapp/screens/play_screen.dart';
 import 'package:quizapp/screens/questoes.dart';
 
+import 'login_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -53,6 +55,12 @@ class HomeScreen extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(80.0,0.0,80.0,0.0),
                     child: botao('RANKING', 35.0, 2, context)
                 ),
+                IconButton(
+                  icon: Icon(Icons.power_settings_new,color: Colors.white,size: 40),
+                  onPressed:(){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
+                  },
+                )
               ],
             ),
           ),
