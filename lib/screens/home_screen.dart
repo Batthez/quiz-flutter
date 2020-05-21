@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quizapp/screens/Ranking.dart';
 import 'package:quizapp/screens/play_screen.dart';
 import 'package:quizapp/screens/questoes.dart';
+import 'package:quizapp/user/user_logado.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
       body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -42,15 +43,18 @@ class HomeScreen extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(20.0,0.0,20.0,5.0),
                     child: botao('JOGAR', 60.0, 0, context)
                 ),
+
+                ehProfessor()?
                 Container(
                     height: 80.0,
                     padding: EdgeInsets.fromLTRB(40.0,0.0,40.0,5.0),
                     child: botao('CADASTRAR', 40.0, 1, context)
-                ),
+                ) :
+                    Container(),
                 Container(
                     height: 70.0,
                     padding: EdgeInsets.fromLTRB(80.0,0.0,80.0,0.0),
-                    child: botao('LOJA', 35.0, 2, context)
+                    child: botao('RANKING', 35.0, 2, context)
                 ),
               ],
             ),
@@ -82,12 +86,20 @@ RaisedButton botao(String nomebotao, double tamanho, int opcao, BuildContext con
             Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => QuestaoScreen()));
             break;
           case 2:
+            Firestore.instance.collection("users").getDocuments().then((usuarios){
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RankingScreen(usuarios.documents)));
+            });
             break;
 
         }
       }
     );
+
 }
+
+  bool ehProfessor(){
+    return Firebase.dadosDoUsuario["tipoUsuario"] == 1;
+  }
 }
 
 

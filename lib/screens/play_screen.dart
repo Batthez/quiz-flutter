@@ -63,11 +63,12 @@ class _PlayScreenState extends State<PlayScreen> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(
-            "Questão ${numQuestao + 1}/${listaDeQuestoes.length} $_mostrartimer",
+            "Questão ${numQuestao + 1}/${listaDeQuestoes.length}",
             style: TextStyle(
               fontSize: 25.0,
             ),
           ),
+
           centerTitle: true,
           backgroundColor: Colors.deepPurple,
         ),
@@ -76,15 +77,21 @@ class _PlayScreenState extends State<PlayScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                  child:Text("Tempo: $_mostrartimer", textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18),
+                ),),
                 Container(
-                  padding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(5.0, 25.0, 5.0, 0.0),
                   child: Text(
                     "${listaDeQuestoes[numQuestao]["enunciado"]}",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+
                   ),
                 ),
                 Container(
-                    padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 0.0),
+                    padding: EdgeInsets.fromLTRB(10.0, 25.0, 10.0, 0.0),
                     child: botaoescolhas(
                         "A. ${listaDeQuestoes[numQuestao]["alternativas"][a]}", 25.0, a, context,)
                 ),
